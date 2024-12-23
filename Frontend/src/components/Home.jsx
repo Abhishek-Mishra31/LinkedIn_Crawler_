@@ -1,4 +1,5 @@
 import { React, useState, useContext } from "react";
+import Landingpage from "./Page";
 import { jsPDF } from "jspdf";
 import scrapcontext from "../context/scrapeApi/ScrapContext";
 
@@ -87,6 +88,7 @@ const Home = () => {
 
   return (
     <>
+      <Landingpage />
       <div className="container bg-transparent max-w-full bg-gray-900">
         <div className="mt-10">
           <input

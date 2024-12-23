@@ -1,8 +1,11 @@
 # Ignore node_modules in backend
 backend/node_modules/
+backend/.env
 
 # Ignore node_modules in frontend
 frontend/node_modules/
+frontend/.env
 
 # General rule to ignore all node_modules anywhere
 node_modules/
+.env

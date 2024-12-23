@@ -15,8 +15,22 @@ const ScrapState = (props) => {
     const result = await response.json();
     return result;
   };
+
+  const contactMe = async (name , email , message) => {
+    const contactUrl = `${host}/contact`;
+    const response = await fetch(contactUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ name, email, message }),
+    });
+
+    const result = await response.json();
+    return result;
+  };
   return (
-    <scrapcontext.Provider value={{ scrapeData }}>
+    <scrapcontext.Provider value={{ scrapeData , contactMe }}>
       {props.children}
     </scrapcontext.Provider>
   );
