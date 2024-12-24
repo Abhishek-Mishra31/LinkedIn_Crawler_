@@ -13,14 +13,13 @@ require("dotenv").config();
 const cookiesPath = path.resolve(__dirname, "linkedin_cookies.json");
 
 async function loadCookies(page) {
-  if (!fs.existsSync(cookiesPath)) {
-    console.error(`Cookies file not found in path: ${cookiesPath}`);
-    throw new Error(
-      "Cookies file not found. Log in manually and save cookies."
-    );
+  const cookiesJson = process.env.LINKEDIN_COOKIES;
+  if (!cookiesJson) {
+    console.error("Cookies not found in environment variables.");
+    throw new Error("Cookies not found. Set cookies in the environment.");
   }
 
-  const cookies = JSON.parse(fs.readFileSync(cookiesPath, "utf-8"));
+  const cookies = JSON.parse(cookiesJson);
   console.log("Cookies loaded:", cookies);
   await page.setCookie(...cookies);
 }

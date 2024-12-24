@@ -1,7 +1,7 @@
 import scrapcontext from "./ScrapContext";
 
 const ScrapState = (props) => {
-  const host = "http://localhost:5000";
+  const host = "https://linkedin-crawler-backend.onrender.com";
 
   const scrapeData = async (profileUrl) => {
     const scrapeUrl = `${host}/scrape`;
@@ -16,7 +16,7 @@ const ScrapState = (props) => {
     return result;
   };
 
-  const contactMe = async (name , email , message) => {
+  const contactMe = async (name, email, message) => {
     const contactUrl = `${host}/contact`;
     const response = await fetch(contactUrl, {
       method: "POST",
@@ -30,7 +30,7 @@ const ScrapState = (props) => {
     return result;
   };
   return (
-    <scrapcontext.Provider value={{ scrapeData , contactMe }}>
+    <scrapcontext.Provider value={{ scrapeData, contactMe }}>
       {props.children}
     </scrapcontext.Provider>
   );
