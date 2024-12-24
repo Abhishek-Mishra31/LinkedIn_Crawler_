@@ -10,6 +10,8 @@ app.use(cors());
 const cheerio = require("cheerio");
 require("dotenv").config();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 async function loadCookies(page) {
   const cookiesJson = process.env.LINKEDIN_COOKIES;
   if (!cookiesJson) {
@@ -34,7 +36,10 @@ app.post("/scrape", async (req, res) => {
     console.log("Launching Puppeteer...");
     browser = await puppeteer.launch({
       headless: true,
-      executablePath: process.env.CHROME_BIN || puppeteer.executablePath(),
+      executablePath: isProduction
+        ? process.env.CHROME_BIN ||
+          "/opt/render/.cache/puppeteer/chrome-linux/chrome"
+        : puppeteer.executablePath(),
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
