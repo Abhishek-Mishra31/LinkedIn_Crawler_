@@ -106,6 +106,9 @@ app.post("/scrape", async (req, res) => {
   } finally {
     if (browser) {
       console.log("Closing Puppeteer...");
+      console.log("CHROME_BIN:", process.env.CHROME_BIN);
+      console.log("PUPPETEER_CACHE_DIR:", process.env.PUPPETEER_CACHE_DIR);
+      console.log("Executable Path:", browser.executablePath);
       await browser.close();
     }
   }
