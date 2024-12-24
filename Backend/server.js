@@ -10,8 +10,6 @@ app.use(cors());
 const cheerio = require("cheerio");
 require("dotenv").config();
 
-const cookiesPath = path.resolve(__dirname, "linkedin_cookies.json");
-
 async function loadCookies(page) {
   const cookiesJson = process.env.LINKEDIN_COOKIES;
   if (!cookiesJson) {
@@ -36,6 +34,7 @@ app.post("/scrape", async (req, res) => {
     console.log("Launching Puppeteer...");
     browser = await puppeteer.launch({
       headless: true,
+      executablePath: process.env.CHROME_BIN || puppeteer.executablePath(),
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
@@ -49,7 +48,7 @@ app.post("/scrape", async (req, res) => {
     console.log("Loading cookies...");
     await loadCookies(page);
     console.log("Cookies loaded successfully.");
-
+    ``;
     console.log("Navigating to LinkedIn profile...");
     await page.goto(profileUrl);
     console.log("Navigation successful.");
