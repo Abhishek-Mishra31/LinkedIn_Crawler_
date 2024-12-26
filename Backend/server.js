@@ -38,7 +38,7 @@ app.post("/scrape", async (req, res) => {
       headless: true,
       executablePath:
         process.env.NODE_ENV === "production"
-          ? chromePath
+          ? "/usr/bin/chromium-browser"
           : puppeteer.executablePath(),
       args: [
         "--no-sandbox",
