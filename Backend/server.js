@@ -23,20 +23,6 @@ async function loadCookies(page) {
   await page.setCookie(...cookies);
 }
 
-(async () => {
-  const browserFetcher = puppeteer.createBrowserFetcher();
-  const localRevisions = await browserFetcher.localRevisions();
-
-  console.log("Installed Chromium revisions:", localRevisions);
-
-  localRevisions.forEach((revision) => {
-    const revisionInfo = browserFetcher.revisionInfo(revision);
-    console.log(
-      `Executable path for revision ${revision}: ${revisionInfo.executablePath}`
-    );
-  });
-})().catch((err) => console.error("Error:", err));
-
 app.post("/scrape", async (req, res) => {
   const { profileUrl } = req.body;
 
