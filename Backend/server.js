@@ -37,7 +37,7 @@ app.post("/scrape", async (req, res) => {
     browser = await puppeteer.launch({
       headless: true,
       executablePath:
-        "/opt/render/project/src/Backend/node_modules/puppeteer-core/lib/cjs/puppeteer/node/BrowserLauncher.js",
+        "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64/chrome",
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
