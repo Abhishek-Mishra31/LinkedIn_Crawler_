@@ -23,6 +23,9 @@ async function loadCookies(page) {
   await page.setCookie(...cookies);
 }
 
+const executablePath = puppeteer.executablePath();
+console.log("Detected Chromium Executable Path:", executablePath);
+
 app.post("/scrape", async (req, res) => {
   const { profileUrl } = req.body;
 
