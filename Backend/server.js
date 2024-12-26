@@ -9,9 +9,7 @@ const nodemailer = require("nodemailer");
 app.use(cors());
 const cheerio = require("cheerio");
 require("dotenv").config();
-const PORT = process.env.PORT || 5000;
-
-const chromePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+const PORT = process.env.PORT || 1000;
 
 async function loadCookies(page) {
   const cookiesJson = process.env.LINKEDIN_COOKIES;
@@ -24,6 +22,24 @@ async function loadCookies(page) {
   console.log("Cookies loaded:", cookies);
   await page.setCookie(...cookies);
 }
+
+const pathsToCheck = [
+  "/usr/bin/",
+  "/usr/local/bin/",
+  "/opt/render/.cache/puppeteer/",
+  "/opt/render/project/",
+];
+
+pathsToCheck.forEach((path) => {
+  console.log(`Checking files in: ${path}`);
+  fs.readdir(path, (err, files) => {
+    if (err) {
+      console.error(`Error reading directory ${path}:`, err);
+    } else {
+      console.log(`Files in ${path}:`, files);
+    }
+  });
+});
 
 app.post("/scrape", async (req, res) => {
   const { profileUrl } = req.body;
