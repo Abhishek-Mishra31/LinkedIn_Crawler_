@@ -11,6 +11,8 @@ const cheerio = require("cheerio");
 require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 
+const chromePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+
 async function loadCookies(page) {
   const cookiesJson = process.env.LINKEDIN_COOKIES;
   if (!cookiesJson) {
@@ -38,7 +40,7 @@ app.post("/scrape", async (req, res) => {
       headless: true,
       executablePath:
         process.env.NODE_ENV === "production"
-          ? "/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64/chrome"
+          ? chromePath
           : puppeteer.executablePath(),
       args: [
         "--no-sandbox",
