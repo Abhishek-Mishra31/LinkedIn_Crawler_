@@ -23,23 +23,19 @@ async function loadCookies(page) {
   await page.setCookie(...cookies);
 }
 
-const pathsToCheck = [
-  "/usr/bin/",
-  "/usr/local/bin/",
-  "/opt/render/.cache/puppeteer/",
-  "/opt/render/project/",
-];
+(async () => {
+  const browserFetcher = puppeteer.createBrowserFetcher();
+  const localRevisions = await browserFetcher.localRevisions();
 
-pathsToCheck.forEach((path) => {
-  console.log(`Checking files in: ${path}`);
-  fs.readdir(path, (err, files) => {
-    if (err) {
-      console.error(`Error reading directory ${path}:`, err);
-    } else {
-      console.log(`Files in ${path}:`, files);
-    }
+  console.log("Installed Chromium revisions:", localRevisions);
+
+  localRevisions.forEach((revision) => {
+    const revisionInfo = browserFetcher.revisionInfo(revision);
+    console.log(
+      `Executable path for revision ${revision}: ${revisionInfo.executablePath}`
+    );
   });
-});
+})().catch((err) => console.error("Error:", err));
 
 app.post("/scrape", async (req, res) => {
   const { profileUrl } = req.body;
