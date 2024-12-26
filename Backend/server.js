@@ -36,6 +36,10 @@ app.post("/scrape", async (req, res) => {
 
     browser = await puppeteer.launch({
       headless: true,
+      executablePath:
+        process.env.NODE_ENV === "production"
+          ? "/usr/bin/chromium-browser"
+          : puppeteer.executablePath(),
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
