@@ -3,6 +3,8 @@ const host = process.env.REACT_APP_URL;
 
 const ScrapState = (props) => {
   const scrapeData = async (profileUrl) => {
+    console.log("host is " + host);
+
     const scrapeUrl = `${host}/scrape`;
     const response = await fetch(scrapeUrl, {
       method: "POST",
