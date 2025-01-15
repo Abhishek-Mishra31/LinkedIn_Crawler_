@@ -24,6 +24,8 @@ async function loadCookies(page) {
 }
 
 const executablePath = puppeteer.executablePath();
+console.log(executablePath);
+
 
 app.post("/scrape", async (req, res) => {
   const { profileUrl } = req.body;
@@ -38,7 +40,7 @@ app.post("/scrape", async (req, res) => {
 
     browser = await puppeteer.launch({
       headless: true,
-      executablePath: puppeteer.executablePath(),
+      executablePath: executablePath,
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
